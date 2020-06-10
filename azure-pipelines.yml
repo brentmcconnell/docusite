@@ -29,7 +29,7 @@ steps:
     docker run --rm \
         --volume="$PWD/website:/website" \
         --volume="$PWD/bin:/tmp/bin" \
-        mcr.microsoft.com/azure-cli /bin/bash /tmp/bin/publish-website.sh
+        mcr.microsoft.com/azure-cli /bin/bash /tmp/bin/publish-website.sh -n $SP_NAME -p $SP_PASS -t $SP_TENANT
   displayName: Run Az CLI container
   env:
     SP_APPID: $(AppId)
