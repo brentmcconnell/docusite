@@ -19,4 +19,5 @@ steps:
     cd website
     npm install
     npm run build
+    ls -l ./build
   displayName: 'npm install and build'
