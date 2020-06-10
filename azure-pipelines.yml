@@ -28,11 +28,27 @@ steps:
 - script: |
     docker run --rm \
         --volume="$PWD/website:/website" \
-        --volume=${HOME}/.ssh:/root/.ssh \
-        mcr.microsoft.com/azure-cli az login --service-principal -u $SP_NAME -p $SP_PASS --tenant $SP_TENANT
+        mcr.microsoft.com/azure-cli az login --service-principal -u $SP_NAME -p $SP_PASS --tenant $SP_TENANT && \
+    az storage blob upload-batch \
+        --destination \$web \
+        --account-name "masteringk8s" \
+        --source "/website/build"
   displayName: Run Az CLI container
   env:
     SP_APPID: $(AppId)
     SP_PASS: $(Password)
     SP_NAME: $(Name)
     SP_TENANT: $(Tenant)
+
+
+- task: AzureCLI@1
+  displayName: Copy data to storage acct
+  inputs:
+    azureSubscription: imperfect
+    scriptLocation: inlineScript
+    inlineScript: |
+      echo "Running az script to copy data to storage acct."
+      az storage blob upload-batch \
+        --destination \$web \
+        --account-name "azurepatterns" \
+        --source "_site"
