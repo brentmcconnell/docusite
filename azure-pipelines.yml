@@ -26,8 +26,9 @@ steps:
   displayName: 'npm install and build'
 
 - script: |
-    docker run -it --rm \
+    docker run --rm \
         --volume="$PWD/website:/website" \
+        --volume="$PWD/bin:." \
         mcr.microsoft.com/azure-cli ./publish_website.sh
   displayName: Run Az CLI container
   env:
