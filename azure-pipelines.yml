@@ -24,7 +24,7 @@ steps:
 
 - script: |
     docker run --rm \
-        --volume="$PWD:/website" \
+        --volume="$PWD/website:/website" \
         --volume=${HOME}/.ssh:/root/.ssh \
-        mcr.microsoft.com/azure-cli find /website
-  displayName: Run Jekyll build
+        mcr.microsoft.com/azure-cli find /website/build
+  displayName: Run Az CLI container
