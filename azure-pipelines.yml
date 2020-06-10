@@ -29,9 +29,10 @@ steps:
     docker run --rm \
         --volume="$PWD/website:/website" \
         --volume=${HOME}/.ssh:/root/.ssh \
-        mcr.microsoft.com/azure-cli az login --service-principal -u $SP_NAME -p $SP_PASS
+        mcr.microsoft.com/azure-cli az login --service-principal -u $SP_NAME -p $SP_PASS --tenant $SP_TENANT
   displayName: Run Az CLI container
   env:
     SP_APPID: $(AppId)
     SP_PASS: $(Password)
     SP_NAME: $(Name)
+    SP_TENANT: $(Tenant)
