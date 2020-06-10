@@ -19,5 +19,5 @@ steps:
     cd website
     npm install
     npm run build
-    tree ./build
+    find ./build
   displayName: 'npm install and build'
