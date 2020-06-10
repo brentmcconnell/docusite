@@ -29,11 +29,11 @@ steps:
     docker run --rm \
         --volume="$PWD/website:/website" \
         mcr.microsoft.com/azure-cli az login --service-principal -u $SP_NAME -p $SP_PASS --tenant $SP_TENANT && \
-          find /website && \
+          find $PWD/website && \
           az storage blob upload-batch \
               --destination \$web \
               --account-name "masteringk8s" \
-              --source "/website/build"
+              --source "$PWD/website/build/test-site"
   displayName: Run Az CLI container
   env:
     SP_APPID: $(AppId)
