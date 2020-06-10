@@ -29,15 +29,8 @@ steps:
     docker run --rm \
         --volume="$PWD/website:/website" \
         --volume=${HOME}/.ssh:/root/.ssh \
-        mcr.microsoft.com/azure-cli find /website/build
+        mcr.microsoft.com/azure-cli az login -u $SP_APPID -p $SP_PASS
   displayName: Run Az CLI container
-
-- script: |
-    docker build -t $DOCKER_USER/$(imageName):$(setVar.commitHash) -t $DOCKER_USER/$(imageName):latest .
-    docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-    docker push $DOCKER_USER/$(imageName):$(setVar.commitHash)
-    docker push $DOCKER_USER/$(imageName):latest
-  displayName: Build Docker container
   env:
-    DOCKER_PASSWORD: $(docker_pass)
-    DOCKER_USER: $(docker_user)
+    SP_APPID: $(AppId)
+    SP_PASS: $(Password)
