@@ -39,16 +39,3 @@ steps:
     SP_PASS: $(Password)
     SP_NAME: $(Name)
     SP_TENANT: $(Tenant)
-
-
-- task: AzureCLI@1
-  displayName: Copy data to storage acct
-  inputs:
-    azureSubscription: imperfect
-    scriptLocation: inlineScript
-    inlineScript: |
-      echo "Running az script to copy data to storage acct."
-      az storage blob upload-batch \
-        --destination \$web \
-        --account-name "azurepatterns" \
-        --source "_site"
