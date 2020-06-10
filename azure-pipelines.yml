@@ -21,3 +21,10 @@ steps:
     npm run build
     find ./build
   displayName: 'npm install and build'
+
+- script: |
+    docker run --rm \
+        --volume="$PWD:/website" \
+        --volume=${HOME}/.ssh:/root/.ssh \
+        mcr.microsoft.com/azure-cli find /website
+  displayName: Run Jekyll build
