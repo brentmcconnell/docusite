@@ -9,6 +9,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+- group: 'Azure Devops SP'
+
 steps:
 - task: NodeTool@0
   inputs:
@@ -28,3 +31,13 @@ steps:
         --volume=${HOME}/.ssh:/root/.ssh \
         mcr.microsoft.com/azure-cli find /website/build
   displayName: Run Az CLI container
+
+- script: |
+    docker build -t $DOCKER_USER/$(imageName):$(setVar.commitHash) -t $DOCKER_USER/$(imageName):latest .
+    docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+    docker push $DOCKER_USER/$(imageName):$(setVar.commitHash)
+    docker push $DOCKER_USER/$(imageName):latest
+  displayName: Build Docker container
+  env:
+    DOCKER_PASSWORD: $(docker_pass)
+    DOCKER_USER: $(docker_user)
