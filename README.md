@@ -2,7 +2,7 @@
 Docusaurus Azure DevOps pipeline that uses Azure CLI docker container for pushing to storage accounts
 
 ## Summary
-This is a sample for an Azure DevOps pipeline to publish a static website to a storage account using the Azure CLI docker image.
+This is a sample for an Azure DevOps pipeline to publish a static website to a storage account using the Azure CLI docker image.  This can be used in situations where you are using a self hosted build agent with Azure Devops and don't have access to add additional tooling but need the az cli tool.
 
 ## Instructions
 1. Create a service principal in Azure that has access to the storage account (az ad sp create-for-rbac)
